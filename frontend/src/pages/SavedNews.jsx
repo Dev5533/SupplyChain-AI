@@ -12,9 +12,12 @@ const SavedNews = () => {
       const response = await axios.get('/api/news/saved', {
         params: tag === 'All' ? {} : { tag }
       });
-      setArticles(response.data.articles);
+
+      const fetchedArticles = response.data?.articles || [];
+      setArticles(fetchedArticles);
     } catch (error) {
       console.error('Error fetching saved news:', error.message);
+      setArticles([]);
     }
   };
 
