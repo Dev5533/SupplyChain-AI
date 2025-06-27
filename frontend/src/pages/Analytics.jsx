@@ -28,10 +28,12 @@ const Analytics = () => {
   const [totalArticles, setTotalArticles] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  const API_BASE = process.env.REACT_APP_API_BASE;
+
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const res = await axios.get('/api/news/analytics');
+        const res = await axios.get(`${API_BASE}/api/news/analytics`);
 
         const tagCounts = res.data?.tagCounts || [];
         const tags = tagCounts.map(item => item._id);
@@ -69,7 +71,7 @@ const Analytics = () => {
     };
 
     fetchAnalytics();
-  }, []);
+  }, [API_BASE]);
 
   return (
     <Container>

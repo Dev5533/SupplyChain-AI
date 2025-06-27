@@ -7,10 +7,12 @@ const SavedNews = () => {
   const [articles, setArticles] = useState([]);
   const [filterTag, setFilterTag] = useState('All');
 
+  const API_BASE = process.env.REACT_APP_API_BASE;
+
   const fetchSavedNews = async (tag = 'All') => {
     try {
-      const response = await axios.get('/api/news/saved', {
-        params: tag === 'All' ? {} : { tag }
+      const response = await axios.get(`${API_BASE}/api/news/saved`, {
+        params: tag === 'All' ? {} : { tag },
       });
 
       const fetchedArticles = response.data?.articles || [];

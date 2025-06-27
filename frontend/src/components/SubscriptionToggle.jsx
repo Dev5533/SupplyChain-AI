@@ -7,11 +7,13 @@ const SubscriptionToggle = () => {
   const [loading, setLoading] = useState(true);
   const token = getToken();
 
+  const API_BASE = process.env.REACT_APP_API_BASE;
+
   useEffect(() => {
     const fetchStatus = async () => {
       if (!token) return;
       try {
-        const res = await axios.get('https://supplychain-backend-hy60.onrender.com/api/auth/me', {
+        const res = await axios.get(`${API_BASE}/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setIsSubscribed(res.data.isSubscribed);
@@ -23,18 +25,18 @@ const SubscriptionToggle = () => {
     };
 
     fetchStatus();
-  }, [token]);
+  }, [token, API_BASE]);
 
   const toggleSubscription = async () => {
     try {
-      const res = await axios.put(
-        'https://supplychain-backend-hy60.onrender.com/api/auth/toggle-subscription',
+      await axios.put(
+        `${API_BASE}/api/auth/toggle-subscription`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setIsSubscribed((prev) => !prev);
     } catch (err) {
-      console.error(' Failed to toggle subscription:', err.message);
+      console.error('Failed to toggle subscription:', err.message);
     }
   };
 

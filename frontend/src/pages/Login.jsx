@@ -6,18 +6,19 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const API_BASE = process.env.REACT_APP_API_BASE;
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://supplychain-backend-hy60.onrender.com/api/auth/login', {
+      const res = await axios.post(`${API_BASE}/api/auth/login`, {
         email,
         password,
       });
       localStorage.setItem('token', res.data.token);
       navigate('/');
     } catch (err) {
-      alert('Login failed: ' + err.response.data.message);
+      alert('Login failed: ' + (err.response?.data?.message || err.message));
     }
   };
 

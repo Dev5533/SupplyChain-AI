@@ -8,10 +8,12 @@ function Register() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const API_BASE = process.env.REACT_APP_API_BASE;
+
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://supplychain-backend-hy60.onrender.com/api/auth/register', {
+      await axios.post(`${API_BASE}/api/auth/register`, {
         name,
         email,
         password,
@@ -19,7 +21,7 @@ function Register() {
       alert('Registration successful!');
       navigate('/login');
     } catch (err) {
-      alert('Registration failed: ' + err.response.data.message);
+      alert('Registration failed: ' + (err.response?.data?.message || err.message));
     }
   };
 
@@ -30,18 +32,33 @@ function Register() {
         <form onSubmit={handleRegister}>
           <div className="mb-3">
             <label>Full Name</label>
-            <input type="text" className="form-control" value={name}
-              onChange={(e) => setName(e.target.value)} required />
+            <input
+              type="text"
+              className="form-control"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
           </div>
           <div className="mb-3">
             <label>Email Address</label>
-            <input type="email" className="form-control" value={email}
-              onChange={(e) => setEmail(e.target.value)} required />
+            <input
+              type="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
           <div className="mb-3">
             <label>Password</label>
-            <input type="password" className="form-control" value={password}
-              onChange={(e) => setPassword(e.target.value)} required />
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
           <button type="submit" className="btn btn-success w-100">Register</button>
         </form>
