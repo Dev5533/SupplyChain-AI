@@ -33,12 +33,13 @@ const Home = () => {
           <span className="ms-3">Loading news, please wait...</span>
         </div>
       ) : (
-        articles.length === 0 ? (
-          <p>No news available yet.</p>
-        ) : (
+        Array.isArray(articles) && articles.length > 0 ? (
           articles.map((article, idx) => <NewsCard key={idx} article={article} />)
+        ) : (
+          <p>No news available yet.</p>
         )
       )}
+
     </Container>
   );
 };
