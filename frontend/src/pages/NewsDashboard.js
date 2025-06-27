@@ -8,7 +8,7 @@ function NewsDashboard() {
 
   const fetchNews = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/api/news');
+      const res = await axios.get('https://supplychain-backend-hy60.onrender.com/api/news');
       setArticles(res.data.articles);
     } catch (error) {
       console.error('Error fetching news:', error);

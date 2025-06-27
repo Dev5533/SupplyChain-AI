@@ -11,12 +11,12 @@ const SubscriptionToggle = () => {
     const fetchStatus = async () => {
       if (!token) return;
       try {
-        const res = await axios.get('http://localhost:8080/api/auth/me', {
+        const res = await axios.get('https://supplychain-backend-hy60.onrender.com/api/auth/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setIsSubscribed(res.data.isSubscribed);
       } catch (err) {
-        console.error('❌ Failed to fetch subscription status:', err.message);
+        console.error('Failed to fetch subscription status:', err.message);
       } finally {
         setLoading(false);
       }
@@ -28,13 +28,13 @@ const SubscriptionToggle = () => {
   const toggleSubscription = async () => {
     try {
       const res = await axios.put(
-        'http://localhost:8080/api/auth/toggle-subscription',
+        'https://supplychain-backend-hy60.onrender.com/api/auth/toggle-subscription',
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setIsSubscribed((prev) => !prev);
     } catch (err) {
-      console.error('❌ Failed to toggle subscription:', err.message);
+      console.error(' Failed to toggle subscription:', err.message);
     }
   };
 
