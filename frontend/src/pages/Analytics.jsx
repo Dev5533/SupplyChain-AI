@@ -33,11 +33,12 @@ const Analytics = () => {
       try {
         const res = await axios.get('/api/news/analytics');
 
-        const tags = res.data.tagCounts.map(item => item._id);
-        const counts = res.data.tagCounts.map(item => item.count);
+        const tagCounts = res.data?.tagCounts || [];
+        const tags = tagCounts.map(item => item._id);
+        const counts = tagCounts.map(item => item.count);
         const colors = ['#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8'];
 
-        setTotalArticles(res.data.totalArticles);
+        setTotalArticles(res.data?.totalArticles || 0);
 
         setBarData({
           labels: tags,
@@ -56,9 +57,12 @@ const Analytics = () => {
           }]
         });
 
-        setLatestArticles(res.data.latestPerTag);
+        setLatestArticles(res.data?.latestPerTag || []);
       } catch (err) {
         console.error("Failed to load analytics:", err.message);
+        setBarData(null);
+        setPieData(null);
+        setLatestArticles([]);
       } finally {
         setLoading(false);
       }
@@ -83,28 +87,35 @@ const Analytics = () => {
 
           <Row>
             <Col md={6}>
-                <Card className="mb-4">
+              <Card className="mb-4">
                 <Card.Body>
-                    <h5>🧱 Articles by Tag (Bar Chart)</h5>
-                    <div style={{ height: '300px' }}>
-                    <Bar data={barData} options={{ maintainAspectRatio: false }} />
-                    </div>
+                  <h5>🧱 Articles by Tag (Bar Chart)</h5>
+                  <div style={{ height: '300px' }}>
+                    {barData ? (
+                      <Bar data={barData} options={{ maintainAspectRatio: false }} />
+                    ) : (
+                      <p>No data available for bar chart.</p>
+                    )}
+                  </div>
                 </Card.Body>
-                </Card>
+              </Card>
             </Col>
 
             <Col md={6}>
-                <Card className="mb-4">
+              <Card className="mb-4">
                 <Card.Body>
-                    <h5>📊 Tag Proportions (Pie Chart)</h5>
-                    <div style={{ height: '300px' }}>
-                    <Pie data={pieData} options={{ maintainAspectRatio: false }} />
-                    </div>
+                  <h5>📊 Tag Proportions (Pie Chart)</h5>
+                  <div style={{ height: '300px' }}>
+                    {pieData ? (
+                      <Pie data={pieData} options={{ maintainAspectRatio: false }} />
+                    ) : (
+                      <p>No data available for pie chart.</p>
+                    )}
+                  </div>
                 </Card.Body>
-                </Card>
+              </Card>
             </Col>
           </Row>
-
 
           <Card className="mb-4">
             <Card.Body>
@@ -119,14 +130,20 @@ const Analytics = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {latestArticles.map((item, idx) => (
-                    <tr key={idx}>
-                      <td>{item._id}</td>
-                      <td>{item.latest}</td>
-                      <td>{item.source}</td>
-                      <td>{new Date(item.publishedAt).toLocaleString()}</td>
+                  {latestArticles.length > 0 ? (
+                    latestArticles.map((item, idx) => (
+                      <tr key={idx}>
+                        <td>{item._id}</td>
+                        <td>{item.latest || 'N/A'}</td>
+                        <td>{item.source || 'N/A'}</td>
+                        <td>{item.publishedAt ? new Date(item.publishedAt).toLocaleString() : 'N/A'}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="4">No articles found.</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </Table>
             </Card.Body>
