@@ -1,10 +1,10 @@
-# 🚀 SupplyChain AI
+#  SupplyChain AI
 
 **SupplyChain AI** is a modern full-stack web application that leverages AI and real-time data to enhance decision-making across the supply chain ecosystem. It combines live news, intelligent summaries, user authentication, and email subscriptions into one centralized platform.
 
 ---
 
-## 📌 Project Objective
+##  Project Objective
 
 The goal of **SupplyChain AI** is to empower individuals and businesses in the supply chain domain by providing timely, AI-curated insights and analytics. This platform helps users:
 
@@ -15,20 +15,20 @@ The goal of **SupplyChain AI** is to empower individuals and businesses in the s
 
 ---
 
-## 🎯 Key Features
+## Key Features
 
 | Feature                          | Description                                                                 |
 |----------------------------------|-----------------------------------------------------------------------------|
-| 📰 Live News Feed                | Displays real-time supply chain news from external APIs.                   |
-| 💾 Save Important News          | Users can save news articles for later reading.                            |
-| 📈 Analytics Visualization      | View graphical representations of news categories using charts.            |
-| 📬 Email Digest                 | Users can opt in to receive daily emails summarizing the top 5 news items. |
-| ✅ Email Subscription Toggle    | Easily manage whether the user receives emails from the dashboard.         |
-| 🔐 Authentication (JWT)        | Secure login/register flow with JWT-protected routes.                      |
+|  Live News Feed                | Displays real-time supply chain news from external APIs.                   |
+|  Save Important News          | Users can save news articles for later reading.                            |
+|  Analytics Visualization      | View graphical representations of news categories using charts.            |
+|  Email Digest                 | Users can opt in to receive daily emails summarizing the top 5 news items. |
+|  Email Subscription Toggle    | Easily manage whether the user receives emails from the dashboard.         |
+|  Authentication (JWT)        | Secure login/register flow with JWT-protected routes.                      |
 
 ---
 
-## ⚙️ Tech Stack
+##  Tech Stack
 
 - **Frontend**: React.js, Axios, Bootstrap, React Router, Recharts
 - **Backend**: Node.js, Express.js, MongoDB, Mongoose
@@ -39,7 +39,7 @@ The goal of **SupplyChain AI** is to empower individuals and businesses in the s
 
 ---
 
-## 🔐 Security Highlights
+##  Security Highlights
 
 - Passwords securely hashed with `bcrypt`
 - JWT used for secure and stateless authentication
@@ -48,7 +48,7 @@ The goal of **SupplyChain AI** is to empower individuals and businesses in the s
 
 ---
 
-## 📬 Daily Email Digest Workflow
+##  Daily Email Digest Workflow
 
 1. Users register and login securely.
 2. On login, they can toggle the email subscription checkbox.
@@ -57,7 +57,7 @@ The goal of **SupplyChain AI** is to empower individuals and businesses in the s
 
 ---
 
-## 🧠 Future Enhancements
+##  Future Enhancements
 
 - NLP-powered automatic summarization of news
 - Push notifications for breaking supply chain news
@@ -67,7 +67,7 @@ The goal of **SupplyChain AI** is to empower individuals and businesses in the s
 
 ---
 
-## 🧑‍💻 Author
+##  Author
 
 **Dev Patel**    
 Email: [devp8756@gmail.com]
