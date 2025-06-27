@@ -1,0 +1,46 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import NewsCard from '../components/NewsCard';
+import { Container, Spinner } from 'react-bootstrap';
+import SubscriptionToggle from '../components/SubscriptionToggle';
+
+const Home = () => {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true); 
+
+  useEffect(() => {
+    const fetchLiveNews = async () => {
+      try {
+        const response = await axios.get('/api/news');
+        setArticles(response.data.articles);
+      } catch (error) {
+        console.error(" Failed to fetch live news:", error.message);
+      } finally {
+        setLoading(false); 
+      }
+    };
+
+    fetchLiveNews();
+  }, []);
+
+  return (
+    <Container>
+      <h3 className="mb-4">📡 Live Supply Chain News</h3>
+        <SubscriptionToggle />
+      {loading ? (
+        <div className="d-flex justify-content-center align-items-center" style={{ height: '200px' }}>
+          <Spinner animation="border" variant="primary" role="status" />
+          <span className="ms-3">Loading news, please wait...</span>
+        </div>
+      ) : (
+        articles.length === 0 ? (
+          <p>No news available yet.</p>
+        ) : (
+          articles.map((article, idx) => <NewsCard key={idx} article={article} />)
+        )
+      )}
+    </Container>
+  );
+};
+
+export default Home;
