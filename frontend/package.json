@@ -21,7 +21,7 @@
     "recharts": "^3.0.1",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://supplychain-backend-hy60.onrender.com",
+  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

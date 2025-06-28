@@ -7,7 +7,6 @@ import SubscriptionToggle from '../components/SubscriptionToggle';
 const Home = () => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const API_BASE = process.env.REACT_APP_API_BASE;
 
   useEffect(() => {
@@ -21,7 +20,6 @@ const Home = () => {
         setLoading(false);
       }
     };
-
     fetchLiveNews();
   }, [API_BASE]);
 

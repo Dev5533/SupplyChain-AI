@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import NewsCard from '../components/NewsCard';
 import { Container, Row, Col, Form } from 'react-bootstrap';
@@ -6,26 +6,24 @@ import { Container, Row, Col, Form } from 'react-bootstrap';
 const SavedNews = () => {
   const [articles, setArticles] = useState([]);
   const [filterTag, setFilterTag] = useState('All');
-
   const API_BASE = process.env.REACT_APP_API_BASE;
 
-  const fetchSavedNews = async (tag = 'All') => {
+  const fetchSavedNews = useCallback(async (tag = 'All') => {
     try {
       const response = await axios.get(`${API_BASE}/api/news/saved`, {
         params: tag === 'All' ? {} : { tag },
       });
-
       const fetchedArticles = response.data?.articles || [];
       setArticles(fetchedArticles);
     } catch (error) {
       console.error('Error fetching saved news:', error.message);
       setArticles([]);
     }
-  };
+  }, [API_BASE]);
 
   useEffect(() => {
     fetchSavedNews(filterTag);
-  }, [filterTag]);
+  }, [filterTag, fetchSavedNews]);
 
   return (
     <Container className="mt-4">

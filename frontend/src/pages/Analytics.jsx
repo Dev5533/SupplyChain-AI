@@ -34,14 +34,12 @@ const Analytics = () => {
     const fetchAnalytics = async () => {
       try {
         const res = await axios.get(`${API_BASE}/api/news/analytics`);
-
         const tagCounts = res.data?.tagCounts || [];
         const tags = tagCounts.map(item => item._id);
         const counts = tagCounts.map(item => item.count);
         const colors = ['#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8'];
 
         setTotalArticles(res.data?.totalArticles || 0);
-
         setBarData({
           labels: tags,
           datasets: [{
@@ -76,7 +74,6 @@ const Analytics = () => {
   return (
     <Container>
       <h3 className="mb-4">📈 Supply Chain Insights Dashboard</h3>
-
       {loading ? (
         <Spinner animation="border" />
       ) : (
@@ -142,9 +139,7 @@ const Analytics = () => {
                       </tr>
                     ))
                   ) : (
-                    <tr>
-                      <td colSpan="4">No articles found.</td>
-                    </tr>
+                    <tr><td colSpan="4">No articles found.</td></tr>
                   )}
                 </tbody>
               </Table>
