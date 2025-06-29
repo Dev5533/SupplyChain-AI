@@ -3,7 +3,10 @@ import axios from 'axios';
 import { getToken } from '../utils/auth';
 
 const SubscriptionToggle = () => {
-  const [isSubscribed, setIsSubscribed] = useState(null);
+  const [isSubscribed, setIsSubscribed] = useState(() => {
+    const cached = localStorage.getItem('isSubscribed');
+    return cached !== null ? JSON.parse(cached) : null;
+  });
   const [loading, setLoading] = useState(true);
   const token = getToken();
 
@@ -17,6 +20,7 @@ const SubscriptionToggle = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setIsSubscribed(res.data.isSubscribed);
+        localStorage.setItem('isSubscribed', JSON.stringify(res.data.isSubscribed));
       } catch (err) {
         console.error('Failed to fetch subscription status:', err.message);
       } finally {
@@ -34,13 +38,15 @@ const SubscriptionToggle = () => {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setIsSubscribed((prev) => !prev);
+      const updated = !isSubscribed;
+      setIsSubscribed(updated);
+      localStorage.setItem('isSubscribed', JSON.stringify(updated));
     } catch (err) {
       console.error('Failed to toggle subscription:', err.message);
     }
   };
 
-  if (!token || loading) return null;
+  if (!token || loading || isSubscribed === null) return null;
 
   return (
     <div className="d-flex justify-content-end align-items-center mb-3">
