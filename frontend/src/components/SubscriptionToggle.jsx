@@ -3,15 +3,20 @@ import axios from 'axios';
 import { getToken } from '../utils/auth';
 
 const SubscriptionToggle = () => {
-  const [isSubscribed, setIsSubscribed] = useState(() => {
-    const cached = localStorage.getItem('isSubscribed');
-    return cached !== null ? JSON.parse(cached) : null;
-  });
+  const [isSubscribed, setIsSubscribed] = useState(null);
   const [loading, setLoading] = useState(true);
   const token = getToken();
-
   const API_BASE = process.env.REACT_APP_API_BASE;
 
+  // Load cached subscription status from localStorage
+  useEffect(() => {
+    const cached = localStorage.getItem('isSubscribed');
+    if (cached !== null) {
+      setIsSubscribed(JSON.parse(cached));
+    }
+  }, []);
+
+  // Fetch real subscription status from server
   useEffect(() => {
     const fetchStatus = async () => {
       if (!token) return;
@@ -38,9 +43,11 @@ const SubscriptionToggle = () => {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      const updated = !isSubscribed;
-      setIsSubscribed(updated);
-      localStorage.setItem('isSubscribed', JSON.stringify(updated));
+      setIsSubscribed((prev) => {
+        const newVal = !prev;
+        localStorage.setItem('isSubscribed', JSON.stringify(newVal));
+        return newVal;
+      });
     } catch (err) {
       console.error('Failed to toggle subscription:', err.message);
     }
