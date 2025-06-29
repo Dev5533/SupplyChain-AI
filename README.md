@@ -67,6 +67,12 @@ The goal of **SupplyChain AI** is to empower individuals and businesses in the s
 
 ---
 
+## 🚀 Deployment
+
+- **Frontend**: [https://supply-chain-ai.vercel.app](https://supply-chain-ai.vercel.app)
+  
+---
+
 ##  Author
 
 **Dev Patel**    
