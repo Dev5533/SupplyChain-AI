@@ -50,3 +50,5 @@ const runDailyDigest = async () => {
     console.error(' Failed to send digest:', err.stack);
   }
 };
+runDailyDigest(); // Call directly for testing
+
