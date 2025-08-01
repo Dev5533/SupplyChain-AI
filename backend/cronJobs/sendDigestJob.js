@@ -9,16 +9,6 @@ const User = require('../models/User');
 const News = require('../models/News');
 const sendDigest = require('../utils/mailer');
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('📦 Connected to MongoDB');
-  startCron();
-}).catch(err => {
-  console.error(' MongoDB connection failed:', err);
-});
 
 function startCron() {
   console.log('🕒 Cron job scheduled');
