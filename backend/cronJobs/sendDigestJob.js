@@ -1,4 +1,6 @@
 // cronJobs/sendDigestJobs.js
+require('dotenv').config(); // Load env variables before using MONGO_URI
+
 const cron = require('node-cron');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -15,7 +17,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.log('📦 Connected to MongoDB');
   startCron();
 }).catch(err => {
-  console.error('❌ MongoDB connection failed:', err);
+  console.error(' MongoDB connection failed:', err);
 });
 
 function startCron() {
@@ -53,8 +55,8 @@ const runDailyDigest = async () => {
       await sendDigest(user.email, '📬 Your Daily Supply Chain News Digest', htmlContent);
     }
 
-    console.log(`✅ Digest sent to ${users.length} subscribers.`);
+    console.log(` Digest sent to ${users.length} subscribers.`);
   } catch (err) {
-    console.error('❌ Failed to send digest:', err.stack);
+    console.error(' Failed to send digest:', err.stack);
   }
 };
