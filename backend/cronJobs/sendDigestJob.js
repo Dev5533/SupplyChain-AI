@@ -1,5 +1,5 @@
 // cronJobs/sendDigestJobs.js
-require('dotenv').config(); // Load env variables before using MONGO_URI
+require('dotenv').config();
 
 const cron = require('node-cron');
 const mongoose = require('mongoose');
