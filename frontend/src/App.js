@@ -1,4 +1,5 @@
 import React from 'react';
+import PrivateRoute from './utils/PrivateRoute';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -7,6 +8,7 @@ import SavedNews from './pages/SavedNews';
 import Analytics from './pages/Analytics';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { isLoggedIn, removeToken } from './utils/auth';
+
 
 const NavigationBar = () => {
   const location = useLocation();
@@ -40,21 +42,59 @@ const NavigationBar = () => {
   );
 };
 
+// function App() {
+//   return (
+//     <Router>
+//       <NavigationBar />
+//       <Container className="mt-4">
+//         <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/saved" element={<SavedNews />} />
+//           <Route path="/analytics" element={<Analytics />} />
+//           <Route path="/login" element={<Login />} />
+//           <Route path="/register" element={<Register />} />
+//         </Routes>
+//       </Container>
+//     </Router>
+//   );
+// }
+
 function App() {
   return (
     <Router>
       <NavigationBar />
       <Container className="mt-4">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/saved" element={<SavedNews />} />
-          <Route path="/analytics" element={<Analytics />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          {/* PROTECTED ROUTES */}
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/saved"
+            element={
+              <PrivateRoute>
+                <SavedNews />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/analytics"
+            element={
+              <PrivateRoute>
+                <Analytics />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Container>
     </Router>
   );
 }
-
 export default App;
